@@ -28,11 +28,22 @@ ces2020_data <- read_parquet("data/cleaned_data/ces2020_cleaned/part-0.parquet")
 
 ### Mathematical Model ###
 
-#\begin{align*}
-#\text{logit(}\pi_i\text{)} &= \beta_0 + \beta_1 \cdot \text{gender}_i \\
-#& \quad + \beta_2 \cdot \text{education}_i + b_i \\
-#b_i &\sim \mathcal{N}(0, \sigma^2)
-#\end{align*}
+## \begin{align*}
+
+##  y_i|\pi_i &\sim \mbox{Bern}(\pi_i) \\
+##  \mbox{logit(}\pi_i\mbox{) } &=  \beta_0 \, + \, \beta_1 \cdot \text{gender}_i \,
+##  + \, \beta_2 \cdot \mbox{education}_i \, +  \, \beta_3 \cdot \mbox{race}_i \\
+##  &\quad \, + \, \beta_4 \cdot \mbox{economic outlook}_i \,
+##  + \, \beta_5 \cdot \mbox{income change}_i \\
+##  \beta_0 &\sim \mbox{Normal}(0, 2.5) \\
+##  \beta_1 &\sim \mbox{Normal}(0, 2.5) \\
+##  \beta_2 &\sim \mbox{Normal}(0, 2.5) \\
+##  \beta_3 &\sim \mbox{Normal}(0, 2.5) \\
+##  \beta_4 &\sim \mbox{Normal}(0, 2.5) \\
+##  \beta_5 &\sim \mbox{Normal}(0, 2.5) \\
+  
+##  \end{align*}
+
 
 ### Model data ####
 
