@@ -62,8 +62,7 @@ ces2020_data_reduced <-
 
 voter_outcomes_demographic_only <-
   stan_glm(
-    voted_for ~ gender + education + race + region + marriage_status +
-      family_income + economic_outlook + income_change,
+    voted_for ~ gender + education + race,
     data = ces2020_data_reduced,
     family = binomial(link = "logit"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
