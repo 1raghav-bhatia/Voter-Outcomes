@@ -1,6 +1,6 @@
 ---
 title: "Voting Patterns Unveiled"
-subtitle: "The Impact of Demographics and Economic Outcome in the 2020 Election"
+subtitle: "The Impact of Demographics and Economic Outlook in the 2020 Election"
 author: 
   - Carl Fernandes
   - Lexi Knight
@@ -9,7 +9,7 @@ thanks: "Code and data are available at: https://github.com/1raghav-bhatia/Voter
 date: March 12, 2024
 date-format: long
 abstract: "This paper investigates voter demographics and economic outlook on preferences for candidates in the 2020 US presidential election. It was found that race and education played pivotal roles in determining support for Biden over Trump. Moreover, economic factors influenced voter sentiment with perceptions of economic hardship impacting candidate favorability. Awareness of these complex dynamics is imperative for grasping the landscape of American politics especially with the upcoming US election this November."
-
+toc: true
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -54,7 +54,7 @@ voter_outcomes_economic_only_model <- readRDS(
 
 As the curtains rose on the 2020 presidential election stage, the dynamic interplay between demographics, economic outlook and voter preferences took center stage. With divergent voices and values at play, the battle between Donald Trump and Joe Biden underscored the intricate tapestry of American society, where race, gender and the state of the economy painted a complex picture of electoral dynamics. On November 3rd, 2020, the United States presidential election took place where the top two candidates were Joe Biden of the democratic party and Donald Trump of the republican party. Biden won the majority with 306 electoral votes over Trump with 232. Our estimand is how certain voter characteristics and opinions affected voter preferences in the 2020 US presidential election. In this paper, we analyze how demographics including race, income and education affected which voters were more inclined to vote for Biden over Trump. Additionally, we investigate the effect that two economic variables, namely economic outlook and income change, had on a respondents inclination to vote in favor of Biden.
  
-Previous research uses the American Trends panel conducted shortly after the 2020 US general election as well as surveys conducted in 2018 on 10,000 panelists. This research studies race, illustrating Black, Asian and other races supported Biden with an overwhelming 92% of Blacks voting for Biden (Igielnik, 2021). On the other hand White and Hispanic voters were found to support Trump. In terms of gender, men supported Biden and women supported Trump. When looking at a combination of race and gender, there is a similar trend, with white men supporting Biden and white women supporting Trump. Education's impact on voting preferences showcase that Biden supporters had at least a four-year college education or higher in comparison to Trump voters who had less than that. The amalgamation of race and education that voted for Trump were Hispanics and whites without a four-year educational accomplishment. Conversely, Biden supporters were strictly those that had a minimum four year college experience and race did not impact this relationship (Igielnik, 2021).
+Previous research uses the American Trends panel conducted shortly after the 2020 US general election as well as surveys conducted in 2018 on 10,000 panelists. This research studies race, illustrating Black, Asian and other races supported Biden with an overwhelming 92% of Blacks voting for Biden [@citeIgielnik]. On the other hand White and Hispanic voters were found to support Trump. In terms of gender, men supported Biden and women supported Trump. When looking at a combination of race and gender, there is a similar trend, with white men supporting Biden and white women supporting Trump. Education's impact on voting preferences showcase that Biden supporters had at least a four-year college education or higher in comparison to Trump voters who had less than that. The amalgamation of race and education that voted for Trump were Hispanics and whites without a four-year educational accomplishment. Conversely, Biden supporters were strictly those that had a minimum four year college experience and race did not impact this relationship [@citeIgielnik].
  
 Our data portrays that a significant share of Bidens voters had a very negative view on the economy. Additionally it was found that there was more female support toward Biden. Black, Hispanic, and Asian voters voted for Biden. Furthermore, individuals with a four-year college degree or higher were in support of Biden. Finally, in looking at education by race, both white and non-white college graduates as well as non-white voters without a college degree voted for Biden, leaving whites without a college degree to support Trump. Majority of voters who perceived that the economy had stayed stable or gotten worse overwhelmingly supported Biden. A comparison of our current economy and the 2020 economy offers an idea as to whether voters' outlook on the economy will play a role in the upcoming 2024 presidential election, as it did in 2020.  
 
@@ -63,7 +63,7 @@ The paper starts with the data section to understand and visualize the demograph
 
 # Data {#sec-data}
 
-The analysis is based on the Cooperative Election Study (CES), from 2020 [@citeces2020_raw data] which contains a wealth of data on voter registration, preferences, demographics, and various opinions on national issues. The CES was conducted during a time of increased political activity and social discussions in the United States, providing a snapshot of the electorate during the 2020 Presidential election—a year marked by significant social and economic changes.
+The analysis is based on the Cooperative Election Study (CES), from 2020 which contains a wealth of data on voter registration, preferences, demographics, and various opinions on national issues. The coding language and associated packages used are `R` [@citeR], the `tidyverse` [@Rpackage_tidyverse], `boot`[@Rpackage_boot], `broom.mixed` [@Rpackage_broom_mixed], `collapse`[@Rpackage_collapse] ,`dataverse` [@Rpackage_dataverse], `arrow` [@Rpackage_arrow], `rstanarm` [@Rpackage_rstanarm], `knitr` [@Rpackage_knitr], `janitor` [@Rpackage_janitor], `marginaleffects` [@Rpackage_marginaleffects], `here` [@Rpackage_here], and `modelsummary` [@Rpackage_modelsummary], `readr` [@Rpackage_readr] and `Kable Extra` [@Rpackage_kableExtra].The CES was conducted during a time of increased political activity and social discussions in the United States, providing a snapshot of the electorate during the 2020 Presidential election—a year marked by significant social and economic changes.
 
 This dataset is notable for its extensive coverage across geographical regions and the depth of topics covered. With over 60,000 respondents it offers a broadened perspective on voters, allowing for detailed examination of voter behavior and preferences beyond just party affiliations. It delves into the details of voter demographics and their nuanced views on matters.
 
@@ -383,20 +383,20 @@ Once we have the $logit(\pi_i)$, we define a linear relationship between this qu
 
 #### Parameter Estimation ####
 
-The model has 6 parameters  $\beta_0$, $\beta_1$, $\beta_2$, $\beta_3$, $\beta_4$, $\beta_5$ which need to be estimated from the [cleaned_data] dataset. These parameters are estimated by defining the model within the stan_glm() function from the [rstanarm] package. The function uses Markov Chain Monte Carlo (MCMC) algorithms to create a chain of samples from the posterior distribution of each coefficient. This not only gives us point estimates, but also the posterior distribution of values for each coefficient. 
+The model has 6 parameters  $\beta_0$, $\beta_1$, $\beta_2$, $\beta_3$, $\beta_4$, $\beta_5$ which need to be estimated from the cleaned_data dataset. These parameters are estimated by defining the model within the stan_glm() function from the [@Rpackage_rstanarm] package. The function uses Markov Chain Monte Carlo (MCMC) algorithms to create a chain of samples from the posterior distribution of each coefficient. This not only gives us point estimates, but also the posterior distribution of values for each coefficient. 
 
 The posterior distribution contains information about all of the coefficients moments, giving us estimates for not only the central values, but also the uncertainty associated with each estimate. Using the central moments as well as the 95% credibility intervals for the coefficients, helps us determine whether the input variables have an effect on voting preferences. 
 
 
 # Results
 
-This section looks at the results of the regression performed using the Model from the Model section and the cleaned data set [@cleaned_data]. We first look at the results of our regression analysis, which includes, the parameter estimates and their credibility intervals. Subsequently, we explore select variables of interest and their effects on the probability of voting for Biden. Finally, we assess model fit using the $R^2$ metric and compare our final model's $R^2$ to the same model with certain terms dropped in order to assess the explanatory power of our model.  
+This section looks at the results of the regression performed using the Model from the Model section and the cleaned data set. We first look at the results of our regression analysis, which includes, the parameter estimates and their credibility intervals. Subsequently, we explore select variables of interest and their effects on the probability of voting for Biden. Finally, we assess model fit using the $R^2$ metric and compare our final model's $R^2$ to the same model with certain terms dropped in order to assess the explanatory power of our model.  
 
 ## Regression Results
 
 @tbl-coefficient-estimates contains the parameter estimates for the regression analysis. The regression analysis was done on a random sample of 10,000 observations out of 39,203 in order to speed up computational time while preserving the properties of the dataset. The first column of the @tbl-coefficient-estimates contains the parameter name. Since all the input variables are categorical variables, the regression creates indicator terms for each value the variable takes and estimates a unique coefficient based of that. 
 
-The second column contains the actual parameter point estimates. These estimates are based of the stan_glm() function from the [@citerstanarm] package. The third column gives the standard error while the 4th and 5th columns give the lower and upper limit for the credibility intervals. The table was created from the model using the tidy() function from the [broom.mixed] package, while the 'kable()' and 'kable_styling()' functions were used from [@citeknitr] and [@citekable_extra]. 
+The second column contains the actual parameter point estimates. These estimates are based of the stan_glm() function from the [@Rpackage_rstanarm] package. The third column gives the standard error while the 4th and 5th columns give the lower and upper limit for the credibility intervals. The table was created from the model using the tidy() function from the [@Rpackage_broom_mixed] package, while the 'kable()' and 'kable_styling()' functions were used from [@Rpackage_knitr] and [@Rpackage_kableExtra]. 
 
 @fig-coefficient-estimates creates a plot of @tbl-coefficient-estimates with the estimate and standard errors shown. The plot shows the credibility intervals for each parameter.
 
